@@ -13,7 +13,7 @@ export default function Meme(){
 
             <input type="text "
             placeholder="Top text"
-            className="h-12 w-full border border-gray-700 rounded "
+            className="px-2 h-12 w-full border border-gray-700 rounded "
             ></input>
         </form>
         <form className="lg:w-1/4 w-full ">
