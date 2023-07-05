@@ -28,7 +28,7 @@ export default function Meme(){
         <button 
         onClick={handleClick}
          className="lg:w-4/6  w-full mt-16  bg-[#672280] hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-  Get a new meme image
+  Get a new  image
 </button>
         </div>
         
