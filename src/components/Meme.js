@@ -3,11 +3,28 @@ import React from "react"
 import { useState } from "react";
 
 export default function Meme(){
-    const[getMeme,setMeme]=React.useState({
-        lower:"Lower Text",
-        upper:"Upper Text",
+    const[meme,setMeme]=React.useState({
+        lower:"Botttom Text",
+        upper:"Top Text",
         randomImage:"http://i.imgflip.com/1bij.jpg"
     })
+    const [allMemes, setAllMemes] = React.useState([])
+    
+    React.useEffect(() => {
+        fetch("https://api.imgflip.com/get_memes")
+            .then(res => res.json())
+            .then(data => setAllMemes(data.data.memes))
+    }, [])
+    
+    function getMemeImage() {
+        const randomNumber = Math.floor(Math.random() * allMemes.length)
+        const url = allMemes[randomNumber].url
+        setMeme(prev => ({
+            ...prev,
+            randomImage: url
+        }))
+        
+    }
     function handleChange(event) {
         setMeme(prev => {
             return{
@@ -16,9 +33,7 @@ export default function Meme(){
             }
         })
       }
-      function handleClick(event){
-        console.log(getMeme)
-      }
+      
       
     return(
        
@@ -47,15 +62,15 @@ export default function Meme(){
         </div>
         <div className="w-full flex justify-center">
         <button 
-        onClick={handleClick}
-         className="lg:w-4/6  w-full mt-16  bg-[#672280] hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+        onClick={getMemeImage}
+         className="lg:w-4/6  w-full   bg-[#672280] hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
   Get a new  image
 </button>
         </div>
-        <div className="meme">
-                <img src={getMeme.randomImage} className="meme--image ml-96" />
-                <h2 className="meme--text top">{getMeme.upper}</h2>
-                <h2 className="meme--text bottom">{getMeme.lower}</h2>
+        <div className="meme p-2">
+                <img src={meme.randomImage} className="meme--image ml-96" />
+                <h2 className="meme--text top">{meme.upper}</h2>
+                <h2 className="meme--text bottom">{meme.lower}</h2>
             </div>
         
      </div> 
